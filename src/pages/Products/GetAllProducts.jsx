@@ -152,7 +152,7 @@ function GetAllProducts(props) {
                     {product.name}
                   </p>
                   <p className="font-bold end text-tertiary">
-                    IDR {n_f(product.price)}
+                  KZT {n_f(product.price)}
                   </p>
                   {Number(userInfo.role) > 1 && (
                     <NavLink

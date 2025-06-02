@@ -191,7 +191,7 @@ function Products(props) {
             <div className="mt-auto flex w-full">
               <button
                 onClick={() => navigate("/promo/new")}
-                className="btn btn-block btn-secondary text-tertiary font-bold normal-case"
+                className="btn btn-block btn-secondary text-primary font-bold normal-case"
               >
                 Add new promo
               </button>

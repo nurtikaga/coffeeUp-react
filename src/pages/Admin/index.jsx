@@ -156,13 +156,13 @@ const AdminDashboard = (props) => {
               <section className="flex gap-2 md:gap-5 mt-5 md:mt-auto mb-5">
                 <div className="hidden md:flex h-96 flex-col justify-between">
                   <span className="text-primary-context text-sm md:text-base lg:text-lg">
-                    IDR {short_n_f(maxValue)}
+                  KZT {short_n_f(maxValue)}
                   </span>
                   <span className="text-primary-context text-sm md:text-base lg:text-lg">
-                    IDR {short_n_f(maxValue / 2)}
+                  KZT {short_n_f(maxValue / 2)}
                   </span>
                   <span className="text-primary-context mb-5 text-sm md:text-base lg:text-lg">
-                    IDR 0
+                  KZT 0
                   </span>
                 </div>
                 <div className="flex items-end h-96 relative justify-between flex-1">

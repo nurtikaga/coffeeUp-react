@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         history: "url('/public/assets/images/cold-brew.webp')",
-        main: "url('/public/assets/images/bg-main-coffee.webp')",
+        main: "url('/public/assets/images/bg-main-coffee.jpeg')",
         profile: "url('/public/assets/images/bg-profile.webp')",
         cart: "url('/public/assets/images/bg-cart.webp')",
       },
@@ -21,9 +21,9 @@ module.exports = {
       colors: {
         primary: "#4F5665",
         "primary-context": "#7C828A",
-        secondary: "#ffba33",
+        secondary: "#753F2A",
         "secondary-200": "#f4a200",
-        tertiary: "#6A4029",
+        tertiary: "#FD743E",
         quartenary: "#0b132a",
       },
       borderWidth: {
@@ -34,9 +34,9 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        jokopi: {
+        coffeeup: {
           primary: "#6A4029",
-          secondary: "#ffba33",
+          secondary: "#FD743E",
           accent: "#0b132a",
           neutral: "#9f9f9f",
           "base-100": "#fff",

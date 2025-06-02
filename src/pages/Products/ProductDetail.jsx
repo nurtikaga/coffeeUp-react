@@ -350,7 +350,7 @@ function ProductDetail(props) {
                 </div>
               </div>
               <p className="font-bold text-xl">
-                IDR {p.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              KZT {p.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </p>
             </div>
             <button

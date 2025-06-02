@@ -328,7 +328,7 @@ const EditPromo = (props) => {
                       className="cursor-pointer bg-gray-50 hover:bg-gray-300 rounded-md p-1 text-sm font-medium"
                       key={key}
                     >
-                      ID: {item.id} - {item.name} - Price: IDR {n_f(item.price)}{" "}
+                      ID: {item.id} - {item.name} - Price: KZT {n_f(item.price)}{" "}
                       - Category: {item.category_name}
                     </li>
                   ))}

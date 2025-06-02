@@ -110,23 +110,23 @@ class Header extends Component {
   logoutHandler = () => {
     toast.dismiss();
     this.props.openLogout();
-    // toast.promise(
-    //   logoutUser(this.props.userInfo.token).then((res) => {
-    //     return res.data;
-    //   }),
-    //   {
-    //     loading: "Please wait",
-    //     success: () => {
-    //       this.setState({ ...this.state, redirectLogout: true });
-    //       this.props.dismissToken();
-    //       return "Logout has been successful! See ya!";
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       return "Something went wrong, please reload your page!";
-    //     },
-    //   }
-    // );
+    toast.promise(
+      logoutUser(this.props.userInfo.token).then((res) => {
+        return res.data;
+      }),
+      {
+        loading: "Please wait",
+        success: () => {
+          this.setState({ ...this.state, redirectLogout: true });
+          this.props.dismissToken();
+          return "Logout has been successful! See ya!";
+        },
+        error: (err) => {
+          console.log(err);
+          return "Something went wrong, please reload your page!";
+        },
+      }
+    );
   };
 
   handleClickOutside(event) {
@@ -173,7 +173,7 @@ class Header extends Component {
             <div className="py-5 md:py-8 font-extrabold">
               <Link to="/" className=" flex flex-row justify-center gap-4">
                 <img src={logo} alt="logo" width="30px" />
-                <h1 className="text-xl">jokopi.</h1>
+                <h1 className="text-xl">CoffeeUp</h1>
               </Link>
             </div>
             <div className="navbar-burger select-none cursor-pointer lg:hidden py-4 flex gap-7 flex-row items-center">

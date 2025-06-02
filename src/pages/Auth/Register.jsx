@@ -105,7 +105,7 @@ const Register = () => {
         <Link to="/">
           <div className="font-extrabold flex flex-row justify-center gap-4">
             <img src={icon} alt="logo" width="30px" />
-            <h1 className="text-xl">jokopi.</h1>
+            <h1 className="text-xl">CoffeeUp.</h1>
           </div>
         </Link>
         <div className="text-xl font-semibold text-tertiary">Login</div>

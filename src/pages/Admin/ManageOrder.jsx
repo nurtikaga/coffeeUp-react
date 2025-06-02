@@ -185,8 +185,8 @@ const ManageOrder = (props) => {
                                 </aside>
                                 <aside className="flex-1">
                                   <p className="text-right">
-                                    IDR {n_f(product.subtotal)}
-                                    {/* IDR {n_f(Number(list.price) * Number(list.qty))} */}
+                                  KZT {n_f(product.subtotal)}
+                                    
                                   </p>
                                 </aside>
                               </div>
@@ -198,25 +198,24 @@ const ManageOrder = (props) => {
                             <div className="flex flex-row uppercase lg:text-lg">
                               <p className="flex-[2_2_0%]">Subtotal</p>
                               <p className="flex-1 lg:flex-none text-right">
-                                IDR {n_f(item.grand_total - 30000)}
+                              KZT {n_f(item.grand_total - 30000)}
                               </p>
                             </div>
                             <div className="flex flex-row uppercase lg:text-lg">
-                              <p className="flex-[2_2_0%]">Tax & Fees</p>
                               <p className="flex-1 lg:flex-none text-right">
-                                IDR 20.000
+                              KZT 20.000
                               </p>
                             </div>
                             <div className="flex flex-row uppercase lg:text-lg">
                               <p className="flex-[2_2_0%]">Shipping</p>
                               <p className="flex-1 lg:flex-none text-right">
-                                IDR 10.000
+                              KZT 10.000
                               </p>
                             </div>
                             <div className="flex flex-row uppercase  lg:text-xl font-bold my-10">
                               <p className="flex-[2_2_0%]">Total</p>
                               <p className="flex-initial lg:flex-none">
-                                IDR {n_f(item.grand_total)}
+                              KZT {n_f(item.grand_total)}
                               </p>
                             </div>
                           </section>
