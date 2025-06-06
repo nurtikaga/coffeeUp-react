@@ -92,41 +92,50 @@ function Cart() {
 
   const disabled = form.payment === "" || form.delivery_address === "";
   const controller = useMemo(() => new AbortController());
-  const payHandler = () => {
-    if (disabled) return;
-    if (userInfo.token === "") {
-      toast.error("Login to continue transaction");
-      navigate("/auth/login");
-      return;
-    }
-    if (editMode) return toast.error("You have unsaved changes");
-    if (cart.length < 1)
-      return toast.error("Add at least 1 product to your cart");
-    setIsLoading(true);
-    createTransaction(
-      {
-        payment_id: form.payment,
-        delivery_id: 1,
-        address: form.delivery_address,
-        notes: form.notes,
-      },
-      cart,
-      userInfo.token,
-      controller
-    )
-      .then(() => {
-        toast.success("Success create transaction");
-        dispatch(cartActions.resetCart());
-        navigate("/history");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("An error ocurred, please check your internet connection");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+const payHandler = () => {
+  if (disabled) return;
+  if (userInfo.token === "") {
+    toast.error("Login to continue transaction");
+    navigate("/auth/login");
+    return;
+  }
+  if (editMode) return toast.error("You have unsaved changes");
+  if (cart.length < 1)
+    return toast.error("Add at least 1 product to your cart");
+
+  // Если выбран Kaspi QR, переходим на страницу с QR
+  if (form.payment === "2") {
+    navigate("/kaspi-qr");
+    return;
+  }
+
+  setIsLoading(true);
+
+    // backend zapros zhiberu
+    fetch('http://localhost:8083/apiv1/orders' , {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify([cart, userInfo])
+    });
+
+    console.log(cart);
+    console.log(userInfo);
+    // xxxxxx
+
+   Promise.resolve()
+    .then(() => {
+      toast.success("Success create transaction");
+      dispatch(cartActions.resetCart());
+      navigate("/history");
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error("An error ocurred, please check your internet connection");
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+};
   const closeRemoveModal = () => {
     setRemove({ product_id: "", size_id: "" });
   };

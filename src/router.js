@@ -28,8 +28,9 @@ import {
   CheckNoAuth,
   TokenHandler,
 } from "./utils/wrappers/protectedRoute";
-
+import ChatAI from "./pages/gemini-chat-app/src/pages/Chatbot/ChatAI";
 // const AllRouter = createBrowserRouter(createRoutesFromElements());
+import KaspiQRPage from "./pages/KaspiQr/KaspiQRPage";
 
 const Routers = () => {
   return (
@@ -70,7 +71,10 @@ const Routers = () => {
             <Route path="profile" element={<Profile title="User Profile" />} />
             <Route path="history" element={<History />} />
             <Route path="history/:id" element={<HistoryDetail />} />
+            <Route path="/chat-ai" element={<ChatAI />} />
+            <Route path="/kaspi-qr" element={<KaspiQRPage />} />
           </Route>
+
 
           {/* Route which only admin */}
           <Route element={<CheckIsAdmin />}>

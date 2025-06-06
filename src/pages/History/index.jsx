@@ -81,33 +81,38 @@ function History() {
   };
 
   useEffect(() => {
-    if (detail === "") return;
-    fetchDetail();
-    return () => {
-      detailController.abort();
-      setDataDetail({ ...initialValue });
-    };
-  }, [detail]);
+  setIsLoading(true);
+  axios
+    .get("http://localhost:8083/apiv1/orders")
+    .then((res) => {
+      setList(res.data); // если сервер возвращает массив заказов
+      setIsLoading(false);
+    })
+    .catch(() => {
+      setIsLoading(false);
+      setList([]);
+    });
+}, []);
 
-  useEffect(() => {
-    if (page && (page < 1 || isNaN(page))) {
-      setSearchParams({ page: 1 });
-      return;
-    }
-    window.scrollTo(0, 0);
+  // useEffect(() => {
+  //   if (page && (page < 1 || isNaN(page))) {
+  //     setSearchParams({ page: 1 });
+  //     return;
+  //   }
+  //   window.scrollTo(0, 0);
 
-    setIsLoading(true);
-    getTransactionHistory({ page: page || 1 }, authInfo.token, controller)
-      .then((result) => {
-        setList(result.data.data);
-        setIsLoading(false);
-        setListMeta(result.data.meta);
-      })
-      .catch(() => {
-        setIsLoading(false);
-        setList([]);
-      });
-  }, [page]);
+  //   setIsLoading(true);
+  //   getTransactionHistory({ page: page || 1 }, authInfo.token, controller)
+  //     .then((result) => {
+  //       setList(result.data.data);
+  //       setIsLoading(false);
+  //       setListMeta(result.data.meta);
+  //     })
+  //     .catch(() => {
+  //       setIsLoading(false);
+  //       setList([]);
+  //     });
+  // }, [page]);
 
   return (
     <>
@@ -191,106 +196,59 @@ function History() {
           </section>
         )}
       </Modal>
-      <main className="bg-history bg-cover bg-center py-6 md:py-12 lg:py-20 text-white">
-        <section className="global-px">
-          <div className="flex flex-col items-center p-3">
-            <h2 className="text-3xl drop-shadow-[0px_10px_10px_rgba(0,0,0,0.6)] font-extrabold mb-5 text-center">
-              Let&#8242;s see what you have bought!
-            </h2>
-            <p>Select items to see detail</p>
-          </div>
-          {/* <nav className="flex flex-row justify-end gap-4">
-            <li className="list-none cursor-pointer select-none" id="selectAll">
-              <p className="underline font-bold">Select All</p>
-            </li>
-            <li
-              className="list-none cursor-pointer select-none"
-              id="deleteSelected"
-            >
-              <p className="underline font-bold">Delete</p>
-            </li>
-          </nav> */}
-          {!isLoading ? (
-            <>
-              <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black py-7">
-                {list.map((item, key) => (
-                  <div
-                    className="history-card  flex flex-row px-4 py-5 bg-white hover:bg-gray-200 cursor-pointer duration-200 rounded-2xl gap-5 relative group"
-                    onClick={() => setDetail(item.id)}
-                    key={key}
-                  >
-                    <div className="">
-                      <img
-                        src={
-                          item.products[0].product_img
-                            ? item.products[0].product_img
-                            : productPlaceholder
-                        }
-                        alt=""
-                        width="100px"
-                        className="rounded-full  aspect-square object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center w-auto">
-                      <div className="font-extrabold text-lg relative w-full">
-                        {item.products[0].product_name}
-                        {item.products.length > 1 && (
-                          <p className="absolute text-sm font-medium top-1 right-0 bg-white duration-200 group-hover:bg-gray-200">
-                            + {item.products.length - 1} more
-                          </p>
-                        )}
-                      </div>
-                      <p className="text-tertiary">
-                      KZT {n_f(item.grand_total)}
-                      </p>
-                      <p className="text-tertiary">{item.status_name}</p>
-                    </div>
-                    {/* <input
-                  type="checkbox"
-                  className="checkbox-history absolute bottom-4 right-4 delete-checkbox border-secondary bg-secondary rounded h-5 w-5"
-                /> */}
-                  </div>
-                ))}
-              </section>
-              <section className="flex justify-center">
-                <div className="join">
-                  {listMeta.prev && (
-                    <button
-                      onClick={() => {
-                        setSearchParams({
-                          page: Number(listMeta.currentPage) - 1,
-                        });
-                      }}
-                      className="join-item btn btn-primary text-white"
-                    >
-                      «
-                    </button>
+      <main>
+  <h2 className="text-2xl font-bold mb-4 text-center">История заказов</h2>
+  {!isLoading ? (
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white rounded-lg shadow">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border-b">№</th>
+            <th className="py-2 px-4 border-b">Товары</th>
+            <th className="py-2 px-4 border-b">Сумма</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.map((order, idx) => (
+            <tr key={idx} className="hover:bg-gray-100">
+              <td className="py-2 px-4 border-b text-center">{idx + 1}</td>
+              <td className="py-2 px-4 border-b">
+                <ul>
+                  {order[0] && order[0].length > 0 ? (
+                    order[0].map((prod, pidx) => (
+                      <li key={pidx}>
+                        {prod.name} x{prod.qty}
+                      </li>
+                    ))
+                  ) : (
+                    <li>Нет товаров</li>
                   )}
-                  <button className="join-item btn btn-primary text-white">
-                    Page {listMeta.currentPage}
-                  </button>
-                  {listMeta.next && (
-                    <button
-                      onClick={() => {
-                        setSearchParams({
-                          page: Number(listMeta.currentPage) + 1,
-                        });
-                      }}
-                      className="join-item btn btn-primary text-white"
-                    >
-                      »
-                    </button>
-                  )}
-                </div>
-              </section>
-            </>
-          ) : (
-            <section className="flex justify-center items-center py-7">
-              <img src={loadingImage} className="invert" />
-            </section>
-          )}
-        </section>
-      </main>
+                </ul>
+              </td>
+              <td className="py-2 px-4 border-b text-center font-semibold">
+                {order[0]
+                  ? order[0]
+                      .reduce(
+                        (sum, prod) =>
+                          sum +
+                          (prod.subtotal ||
+                            (prod.price && prod.qty
+                              ? prod.price * prod.qty
+                              : 0)),
+                        0
+                      )
+                  : 0}{" "}
+                KZT
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <p>Загрузка...</p>
+  )}
+</main>
       <Footer />
     </>
   );

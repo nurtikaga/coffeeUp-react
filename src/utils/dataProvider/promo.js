@@ -20,12 +20,11 @@ export const createPromoEntry = (
   bodyForm.append("desc", desc);
   bodyForm.append("discount", discount);
   bodyForm.append("product_id", product_id);
-  bodyForm.append("coupon_code", coupon_code);
+  bodyForm.append("coupon_code", coupon_code.toUpperCase());
   bodyForm.append("start_date", JSON.stringify(start_date));
   bodyForm.append("end_date", JSON.stringify(end_date));
 
-  form.coupon_code = form.coupon_code.toUpperCase();
-  return api.post("/apiv1/promo", form, {
+  return api.post("/apiv1/promo", bodyForm, {
     signal: controller.signal,
     headers: { Authorization: `Bearer ${token}` },
   });

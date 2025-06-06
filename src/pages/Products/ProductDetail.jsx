@@ -359,11 +359,11 @@ function ProductDetail(props) {
             >
               Add to Cart
             </button>
-            <button
-              className="block bg-secondary disabled:bg-gray-300 disabled:cursor-not-allowed text-tertiary font-bold text-lg py-4 rounded-xl"
-              disabled
-            >
-              Ask a Staff
+<button
+  className="block bg-secondary text-tertiary font-bold text-lg py-4 rounded-xl"
+  onClick={() => navigate("/chat-ai")}
+>
+              Ask a AI
             </button>
           </aside>
         </section>
